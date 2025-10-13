@@ -11,6 +11,15 @@ export function populateMap(map: maplibregl.Map, conferences: any[]) {
       conference.location.coordinates as [number, number]
     );
 
+    marker.getElement().addEventListener("click", () => {
+      const params = new URLSearchParams(window.location.search);
+      params.set("open", conference.id);
+
+      const newUrl = window.location.pathname + "?" + params.toString();
+
+      window.history.replaceState({}, "", newUrl);
+    });
+
     markers.push(marker);
   });
 }

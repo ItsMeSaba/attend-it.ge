@@ -29,6 +29,7 @@ export function ConferenceFilters() {
         <select
           id="location"
           name="location"
+          value={searchParams?.get("location") || "All"}
           className="px-3 py-2 rounded bg-[#23244A] text-white border border-[#222342] focus:outline-none"
           onChange={handleLocationChange}
         >
@@ -48,6 +49,7 @@ export function ConferenceFilters() {
         <select
           id="sortby"
           name="sortby"
+          value={searchParams?.get("sortby") || "soonest"}
           className="px-3 py-2 rounded bg-[#23244A] text-white border border-[#222342] focus:outline-none"
           onChange={onSortByChange}
         >

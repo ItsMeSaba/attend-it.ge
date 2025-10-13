@@ -4,32 +4,36 @@ import { useEffect, useRef } from "react";
 import { populateMap } from "./helpers/populate-map";
 import { initializeMap } from "@/app/lib/maplibre-gl";
 import { useConferences } from "@/hooks/useConferences";
+import { useMapContext } from "@/contexts/MapContext";
 
 import "maplibre-gl/dist/maplibre-gl.css";
 
 export default function Map() {
-  const mapContainer = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<any>(null);
+  const { map, isLoaded, setMap, setIsLoaded } = useMapContext();
   const { conferences, key: conferencesKey } = useConferences();
+  const mapContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!mapContainer.current) return;
 
-    mapRef.current = initializeMap(mapContainer.current);
+    const map = initializeMap(mapContainer.current);
 
-    populateMap(mapRef.current, conferences);
+    map.on("load", () => {
+      setMap(map);
+      setIsLoaded(true);
+      populateMap(map, conferences);
+    });
 
     return () => {
-      mapRef.current?.remove();
+      map?.remove();
     };
   }, []);
 
   useEffect(() => {
-    if (!mapRef.current) return;
+    if (!map) return;
 
-    console.log("conferences", conferences);
-    populateMap(mapRef.current, conferences);
-  }, [conferencesKey]);
+    populateMap(map, conferences);
+  }, [conferencesKey, isLoaded]);
 
   return (
     <div
