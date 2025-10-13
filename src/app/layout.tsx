@@ -2,6 +2,7 @@ import Header from "@/app/components/layout/Header";
 
 import { MapProvider } from "@/contexts/MapContext";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.scss";
 
 export const metadata: Metadata = {
@@ -18,8 +19,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`antialiased min-h-screen bg-[#191A33] flex flex-col`}>
         <MapProvider>
-          <Header />
-          {children}
+          <Suspense>
+            <Header />
+            {children}
+          </Suspense>
         </MapProvider>
       </body>
     </html>
