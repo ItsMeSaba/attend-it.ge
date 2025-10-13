@@ -55,7 +55,7 @@ export function CategoriesSidebar({ className }: Props) {
     router.replace(`?${params.toString()}`, { scroll: false });
   }
 
-  const activeCategory = searchParams?.get("category") || "all";
+  const activeCategory = searchParams?.get("category") || "All";
 
   return (
     <aside

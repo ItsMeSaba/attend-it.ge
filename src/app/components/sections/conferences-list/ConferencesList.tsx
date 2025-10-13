@@ -7,6 +7,16 @@ import { capitalizeFirstLetter } from "@/utils/capitalize-first-letter";
 export function ConferencesList() {
   const { conferences } = useConferences();
 
+  if (conferences.length === 0) {
+    return (
+      <div className="flex flex-col gap-4 relative z-10 px-3 py-10">
+        <div className="text-center text-gray-400 text-lg">
+          No conferences found
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4 relative z-10 px-3">
       {conferences.map((conf) => (
