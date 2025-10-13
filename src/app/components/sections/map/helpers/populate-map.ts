@@ -1,10 +1,23 @@
 import { addMarker } from "@/app/lib/maplibre-gl";
-import Conferences from "@/app/data/conferences";
 
-export function populateMap(map: maplibregl.Map) {
-  map.on("load", () => {
-    Conferences.forEach((conference) => {
-      addMarker(map, conference.location.coordinates as [number, number]);
-    });
+let markers: maplibregl.Marker[] = [];
+
+export function populateMap(map: maplibregl.Map, conferences: any[]) {
+  clearMarkers();
+
+  conferences.forEach((conference) => {
+    const marker = addMarker(
+      map,
+      conference.location.coordinates as [number, number]
+    );
+
+    markers.push(marker);
   });
+}
+
+function clearMarkers() {
+  markers.forEach((marker) => {
+    marker.remove();
+  });
+  markers.length = 0;
 }

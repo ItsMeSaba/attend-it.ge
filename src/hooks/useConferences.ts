@@ -26,6 +26,7 @@ export function useConferences() {
 
   return {
     conferences: filtered,
+    key: `${category}-${location}-${sortby}`,
   };
 }
 
