@@ -1,5 +1,5 @@
 import { addMarker } from "@/app/lib/maplibre-gl";
-import Conferences from "@/app/data/conferences.json";
+import Conferences from "@/app/data/conferences";
 
 export function populateMap(map: maplibregl.Map) {
   map.on("load", () => {

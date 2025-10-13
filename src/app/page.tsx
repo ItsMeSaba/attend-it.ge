@@ -8,7 +8,7 @@ export default function Home() {
     <main className="flex-1">
       <div className="h-[calc(100vh-4.5rem)] grid grid-cols-[1.2fr_2fr]">
         <div className="bg-[#1E1F3A] overflow-y-auto dark-scrollbar">
-          <CategoriesSidebar className="w-14 hover:w-48" />
+          <CategoriesSidebar className="w-14 hover:w-62" />
 
           <div className="ml-14">
             <ConferenceFilters />
