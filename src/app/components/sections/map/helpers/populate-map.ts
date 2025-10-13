@@ -1,6 +1,6 @@
 import { addMarker } from "@/app/lib/maplibre-gl";
 
-let markers: maplibregl.Marker[] = [];
+const markers: maplibregl.Marker[] = [];
 
 export function populateMap(map: maplibregl.Map, conferences: any[]) {
   clearMarkers();
