@@ -1,10 +1,12 @@
+import { ConferenceCategory } from "@/types/global";
+
 const Conferences = [
   {
     id: "1",
     name: "Tbilisi Tech Summit",
-    category: "Tech / Development",
+    category: ConferenceCategory.TechDevelopment,
     location: {
-      city: "tbilisi",
+      city: "Tbilisi",
       coordinates: [44.793, 41.709],
     },
     dates: {
@@ -20,9 +22,9 @@ const Conferences = [
   {
     id: "2",
     name: "Black Sea Blockchain Conference",
-    category: "Finance / Economics",
+    category: ConferenceCategory.FinanceEconomics,
     location: {
-      city: "batumi",
+      city: "Batumi",
       coordinates: [41.638, 41.65],
     },
     dates: {
@@ -38,9 +40,9 @@ const Conferences = [
   {
     id: "3",
     name: "Caucasus Developer Days",
-    category: "Tech / Development",
+    category: ConferenceCategory.TechDevelopment,
     location: {
-      city: "kutaisi",
+      city: "Kutaisi",
       coordinates: [42.707, 42.248],
     },
     dates: {
@@ -56,9 +58,9 @@ const Conferences = [
   {
     id: "4",
     name: "Georgia Data Science Forum",
-    category: "Science / Education",
+    category: ConferenceCategory.ScienceEducation,
     location: {
-      city: "tbilisi",
+      city: "Tbilisi",
       coordinates: [44.801, 41.702],
     },
     dates: {
@@ -74,9 +76,9 @@ const Conferences = [
   {
     id: "5",
     name: "Caucasus Cybersecurity Expo",
-    category: "Tech / Development",
+    category: ConferenceCategory.TechDevelopment,
     location: {
-      city: "rustavi",
+      city: "Rustavi",
       coordinates: [45.017, 41.541],
     },
     dates: {
@@ -92,9 +94,9 @@ const Conferences = [
   {
     id: "6",
     name: "Women in Tech Georgia",
-    category: "Culture / Media",
+    category: ConferenceCategory.CultureMedia,
     location: {
-      city: "tbilisi",
+      city: "Tbilisi",
       coordinates: [44.811, 41.715],
     },
     dates: {
@@ -110,9 +112,9 @@ const Conferences = [
   {
     id: "7",
     name: "Sakartvelo AI Conference",
-    category: "Tech / Development",
+    category: ConferenceCategory.TechDevelopment,
     location: {
-      city: "telavi",
+      city: "Telavi",
       coordinates: [45.47, 41.921],
     },
     dates: {
@@ -127,9 +129,9 @@ const Conferences = [
   {
     id: "8",
     name: "Transcaucasia Mobile Dev Fest",
-    category: "Tech / Development",
+    category: ConferenceCategory.TechDevelopment,
     location: {
-      city: "zugdidi",
+      city: "Zugdidi",
       coordinates: [41.87, 42.509],
     },
     dates: {
@@ -145,9 +147,9 @@ const Conferences = [
   {
     id: "9",
     name: "NextGen IT Leaders Caucasus",
-    category: "Business / Entrepreneurship",
+    category: ConferenceCategory.BusinessEntrepreneurship,
     location: {
-      city: "gori",
+      city: "Gori",
       coordinates: [44.112, 41.986],
     },
     dates: {
@@ -163,9 +165,9 @@ const Conferences = [
   {
     id: "10",
     name: "Batumi UX/UI Meetup",
-    category: "Design / Creative",
+    category: ConferenceCategory.DesignCreative,
     location: {
-      city: "batumi",
+      city: "Batumi",
       coordinates: [41.637, 41.641],
     },
     dates: {

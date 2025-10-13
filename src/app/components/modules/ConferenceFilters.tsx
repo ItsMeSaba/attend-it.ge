@@ -9,13 +9,13 @@ export function ConferenceFilters() {
 
   function handleLocationChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const params = new URLSearchParams(searchParams?.toString() || "");
-    params.set("location", event.target.value.toLowerCase());
+    params.set("location", event.target.value);
     router.replace(`?${params.toString()}`, { scroll: false });
   }
 
   function onSortByChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const params = new URLSearchParams(searchParams?.toString() || "");
-    params.set("sortby", event.target.value.toLowerCase());
+    params.set("sortby", event.target.value);
     router.replace(`?${params.toString()}`, { scroll: false });
   }
 

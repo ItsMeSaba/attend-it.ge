@@ -49,7 +49,9 @@ export function CategoriesSidebar({ className }: Props) {
 
   function handleCategoryClick(category: ConferenceCategory) {
     const params = new URLSearchParams(searchParams?.toString() || "");
-    params.set("category", category.toLowerCase());
+
+    params.set("category", category);
+
     router.replace(`?${params.toString()}`, { scroll: false });
   }
 
@@ -68,8 +70,7 @@ export function CategoriesSidebar({ className }: Props) {
             key={label}
             className={clsx(
               "flex items-center w-full min-h-10 gap-3 cursor-pointer px-3 py-2 text-[#e0e6f4] rounded-md hover:bg-[#23244A] transition-all duration-200",
-              activeCategory === value.toLowerCase() &&
-                "border-1 border-[#e67e22]"
+              activeCategory === value && "border-1 border-[#e67e22]"
             )}
             onClick={() => handleCategoryClick(value as ConferenceCategory)}
           >

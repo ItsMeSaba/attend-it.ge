@@ -4,13 +4,14 @@ import Conferences from "@/app/data/conferences";
 
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
+import { ConferenceCategory } from "@/types/global";
 
 export function useConferences() {
   const searchParams = useSearchParams();
 
-  const category = (searchParams?.get("category") || "all").toLowerCase();
-  const location = (searchParams?.get("location") || "all").toLowerCase();
-  const sortby = (searchParams?.get("sortby") || "soonest").toLowerCase();
+  const category = searchParams?.get("category") || "All";
+  const location = searchParams?.get("location") || "All";
+  const sortby = searchParams?.get("sortby") || "soonest";
 
   const filtered = useMemo(() => {
     let results = Conferences;
@@ -29,21 +30,25 @@ export function useConferences() {
 }
 
 function filterByCategory(conferences: any[], category: string) {
-  if (!category || category === "all") {
+  if (!category || category === "All") {
     return conferences;
   }
 
-  return conferences.filter((conf) => conf.category === category);
+  return conferences.filter(
+    (conf) =>
+      conf.category ===
+      ConferenceCategory[category as keyof typeof ConferenceCategory]
+  );
 }
 
 function filterByLocation(conferences: any[], location: string) {
-  if (!location || location === "all") {
+  if (!location || location === "All") {
     return conferences;
   }
 
   if (location === "others") {
     return conferences.filter(
-      (conf) => !["tbilisi", "batumi", "kutaisi"].includes(conf.location.city)
+      (conf) => !["Tbilisi", "Batumi", "Kutaisi"].includes(conf.location.city)
     );
   }
 
@@ -51,7 +56,7 @@ function filterByLocation(conferences: any[], location: string) {
 }
 
 function sortBy(conferences: any[], sortby: string) {
-  if (sortby === "closest") {
+  if (sortby === "Closest") {
     return conferences.sort((a, b) => {
       const aStart = new Date(a.dates.start).getTime();
       const bStart = new Date(b.dates.start).getTime();
@@ -59,7 +64,7 @@ function sortBy(conferences: any[], sortby: string) {
     });
   }
 
-  if (sortby === "cheapest") {
+  if (sortby === "Cheapest") {
     return conferences.sort((a, b) => a.price?.[0] - b.price?.[0]);
   }
 
