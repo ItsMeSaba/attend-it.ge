@@ -8,6 +8,7 @@ import {
   FaDatabase,
   FaChartBar,
   FaTree,
+  FaThList,
 } from "react-icons/fa";
 import { RiGovernmentLine } from "react-icons/ri";
 import { ConferenceCategory } from "@/types/global";
@@ -18,6 +19,7 @@ import React from "react";
 import clsx from "clsx";
 
 const categoryIcons: Record<ConferenceCategory, React.ReactNode> = {
+  [ConferenceCategory.All]: <FaThList />,
   [ConferenceCategory.TechDevelopment]: <FaLaptopCode />,
   [ConferenceCategory.BusinessEntrepreneurship]: <FaChartBar />,
   [ConferenceCategory.DesignCreative]: <MdOutlineDesignServices />,
@@ -51,6 +53,8 @@ export function CategoriesSidebar({ className }: Props) {
     router.replace(`?${params.toString()}`, { scroll: false });
   }
 
+  const activeCategory = searchParams?.get("category") || "all";
+
   return (
     <aside
       className={clsx(
@@ -58,11 +62,15 @@ export function CategoriesSidebar({ className }: Props) {
         className
       )}
     >
-      <nav className="flex flex-col gap-3 w-full bg-[#181933] h-full top-0 py-2 left-0 z-[100]">
+      <nav className="flex flex-col gap-3 w-full bg-[#181933] h-full top-0 left-0 z-[100]">
         {categories.map(({ label, icon, value }) => (
           <div
             key={label}
-            className="flex items-center w-full min-h-10 gap-3 cursor-pointer px-3 py-2 text-[#e0e6f4] rounded-md hover:bg-[#23244A] transition-all duration-200"
+            className={clsx(
+              "flex items-center w-full min-h-10 gap-3 cursor-pointer px-3 py-2 text-[#e0e6f4] rounded-md hover:bg-[#23244A] transition-all duration-200",
+              activeCategory === value.toLowerCase() &&
+                "border-1 border-[#e67e22]"
+            )}
             onClick={() => handleCategoryClick(value as ConferenceCategory)}
           >
             <span className="text-lg ml-1">{icon}</span>

@@ -8,7 +8,7 @@ export function ConferencesList() {
   const { conferences } = useConferences();
 
   return (
-    <div className="flex flex-col gap-6 relative z-10">
+    <div className="flex flex-col gap-4 relative z-10 px-3">
       {conferences.map((conf) => (
         <div
           key={conf.id}

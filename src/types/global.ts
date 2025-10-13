@@ -1,4 +1,5 @@
 export enum ConferenceCategory {
+  All = "All",
   TechDevelopment = "Tech / Development",
   BusinessEntrepreneurship = "Business / Entrepreneurship",
   DesignCreative = "Design / Creative",
