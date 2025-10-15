@@ -4,6 +4,8 @@
 
 body {
   font-family: "Outfit", sans-serif;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .dark-scrollbar {
@@ -31,4 +33,16 @@ body {
 
 .maplibregl-marker {
   cursor: pointer;
+}
+
+.active-conference-card {
+  border: 2px solid #e67e22;
+}
+
+.active-conference-pin {
+  svg {
+    overflow: visible;
+    stroke: #e67e22;
+    stroke-width: 3px;
+  }
 }

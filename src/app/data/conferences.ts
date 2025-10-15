@@ -1,5 +1,8 @@
 import { ConferenceCategory } from "@/types/global";
 
+const DUMMY_IMAGE =
+  "https://image.tkt.ge/unsafe/rs:fit:1920:/format:webp/plain/https://static.tkt.ge/img/b8da550d-d973-4b2a-bb22-a0021fb852a7.jpeg";
+
 const Conferences = [
   {
     id: "1",
@@ -18,6 +21,7 @@ const Conferences = [
     description:
       "A leading technology summit bringing together innovators from the Caucasus region and beyond.",
     price: [350],
+    image: DUMMY_IMAGE,
   },
   {
     id: "2",
@@ -36,6 +40,7 @@ const Conferences = [
     description:
       "Connecting blockchain professionals and enthusiasts along the Black Sea coast.",
     price: [120],
+    image: DUMMY_IMAGE,
   },
   {
     id: "3",
@@ -54,6 +59,7 @@ const Conferences = [
     description:
       "A gathering for developers and engineers across the Caucasus focusing on hands-on workshops and networking.",
     price: [250],
+    image: DUMMY_IMAGE,
   },
   {
     id: "4",
@@ -72,6 +78,7 @@ const Conferences = [
     description:
       "Bridging industry and academia in the field of data science in Georgia.",
     price: [180],
+    image: DUMMY_IMAGE,
   },
   {
     id: "5",
@@ -90,6 +97,7 @@ const Conferences = [
     description:
       "A cybersecurity exhibition and conference for the greater Caucasus region.",
     price: [90],
+    image: DUMMY_IMAGE,
   },
   {
     id: "6",
@@ -108,6 +116,7 @@ const Conferences = [
     description:
       "Celebrating diversity and empowering women in the Georgian technology sector.",
     price: [100],
+    image: DUMMY_IMAGE,
   },
   {
     id: "7",
@@ -125,6 +134,7 @@ const Conferences = [
     website: "https://sakartveloai.ge",
     description: "Exploring the future of AI and robotics in the region.",
     price: [220],
+    image: DUMMY_IMAGE,
   },
   {
     id: "8",
@@ -143,6 +153,7 @@ const Conferences = [
     description:
       "Annual festival focusing on mobile technologies and design trends in Transcaucasia.",
     price: [80],
+    image: DUMMY_IMAGE,
   },
   {
     id: "9",
@@ -161,6 +172,7 @@ const Conferences = [
     description:
       "A networking event for the next generation of IT leaders in the Caucasus.",
     price: [150],
+    image: DUMMY_IMAGE,
   },
   {
     id: "10",
@@ -179,6 +191,7 @@ const Conferences = [
     description:
       "One-day intensive meetup for designers and product developers on the Black Sea coast.",
     price: [40],
+    image: DUMMY_IMAGE,
   },
 ];
 

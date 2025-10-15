@@ -1,10 +1,14 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { renderPrice } from "./helpers/render-price";
+import { useMapContext } from "@/contexts/MapContext";
 import { useConferences } from "@/hooks/useConferences";
 import { capitalizeFirstLetter } from "@/utils/capitalize-first-letter";
 
 export function ConferencesList() {
+  const { map } = useMapContext();
+  const searchParams = useSearchParams();
   const { conferences } = useConferences();
 
   if (conferences.length === 0) {
@@ -17,13 +21,60 @@ export function ConferencesList() {
     );
   }
 
+  function handleMouseEnter(id: string, coordinates: [number, number]) {
+    const conferencePin = document.getElementById(`conference-pin-${id}`);
+
+    if (conferencePin) {
+      conferencePin.classList.add("active-conference-pin");
+    }
+
+    if (map) {
+      map.flyTo({
+        center: [coordinates[0], coordinates[1]],
+        animate: true,
+        zoom: 12,
+        duration: 2000,
+      });
+    }
+  }
+
+  function handleMouseLeave(id: string) {
+    const conferencePin = document.getElementById(`conference-pin-${id}`);
+    if (conferencePin) {
+      conferencePin.classList.remove("active-conference-pin");
+    }
+  }
+
+  function handleClick(id: string) {
+    const params = new URLSearchParams(searchParams?.toString() || "");
+    params.set("open", id);
+    const newUrl = window.location.pathname + "?" + params.toString();
+    window.history.replaceState({}, "", newUrl);
+  }
+
   return (
     <div className="flex flex-col gap-4 relative z-10 px-3">
       {conferences.map((conf) => (
         <div
           key={conf.id}
-          className="rounded-lg bg-[#23244A] p-4 shadow border border-[#222342]"
+          onMouseEnter={() =>
+            handleMouseEnter(conf.id, conf.location.coordinates)
+          }
+          onMouseLeave={() => handleMouseLeave(conf.id)}
+          onClick={() => handleClick(conf.id)}
+          id={`conference-card-${conf.id}`}
+          className="rounded-lg bg-[#23244A] p-4 shadow border border-[#222342] flex flex-col cursor-pointer"
         >
+          {conf.image && (
+            <div className="w-full mb-3 rounded-lg overflow-hidden bg-[#1a1a35]">
+              <img
+                src={conf.image}
+                alt={conf.name}
+                className="w-full h-40 object-cover"
+              />
+            </div>
+          )}
+
           <h2 className="text-lg font-bold text-white mb-1">{conf.name}</h2>
 
           <div className="text-sm text-[#9ca3af] mb-1">
