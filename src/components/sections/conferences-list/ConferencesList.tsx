@@ -68,6 +68,7 @@ export function ConferencesList({ conferences }: Props) {
           onClick={() => handleClick(conf.id)}
           id={`conference-card-${conf.id}`}
           className="rounded-lg bg-[#23244A] p-4 shadow border border-[#222342] flex flex-col cursor-pointer"
+          lang="ka"
         >
           {conf.image && (
             <div className="w-full mb-3 rounded-lg overflow-hidden bg-[#1a1a35]">

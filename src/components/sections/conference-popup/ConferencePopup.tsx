@@ -33,6 +33,7 @@ export function ConferencePopup({ conferences }: Props) {
     <div
       className="fixed inset-0 z-50 flex items-center justify-center"
       style={{ backdropFilter: "blur(7px)" }}
+      lang="ka"
     >
       <div
         className="absolute inset-0 bg-transparent backdrop-blur-sm"
