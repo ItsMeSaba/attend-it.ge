@@ -1,12 +1,10 @@
 "use client";
 
-import Conferences from "@/app/data/conferences";
-
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { ConferenceCategory } from "@/types/global";
 
-export function useConferences() {
+export function useConferences(conferences: any[]) {
   const searchParams = useSearchParams();
 
   const category = searchParams?.get("category") || "All";
@@ -14,7 +12,7 @@ export function useConferences() {
   const sortby = searchParams?.get("sortby") || "soonest";
 
   const filtered = useMemo(() => {
-    let results = Conferences;
+    let results = conferences;
 
     results = filterByCategory(results, category);
     results = filterByLocation(results, location);
@@ -69,8 +67,9 @@ function sortBy(conferences: any[], sortby: string) {
     return conferences.sort((a, b) => a.price?.[0] - b.price?.[0]);
   }
 
+  console.log("conferences", conferences);
   // Default to soonest
-  return conferences.sort(
+  return conferences?.sort(
     (a, b) =>
       new Date(a.dates.start).getTime() - new Date(b.dates.start).getTime()
   );

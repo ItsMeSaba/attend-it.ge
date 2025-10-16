@@ -6,12 +6,16 @@ import { useMapContext } from "@/contexts/MapContext";
 import { useConferences } from "@/hooks/useConferences";
 import { capitalizeFirstLetter } from "@/utils/capitalize-first-letter";
 
-export function ConferencesList() {
+interface Props {
+  conferences: any[];
+}
+
+export function ConferencesList({ conferences }: Props) {
   const { map } = useMapContext();
   const searchParams = useSearchParams();
-  const { conferences } = useConferences();
+  const { conferences: formattedConferences } = useConferences(conferences);
 
-  if (conferences.length === 0) {
+  if (formattedConferences.length === 0) {
     return (
       <div className="flex flex-col gap-4 relative z-10 px-3 py-10">
         <div className="text-center text-gray-400 text-lg">
@@ -26,15 +30,15 @@ export function ConferencesList() {
 
     if (conferencePin) {
       conferencePin.classList.add("active-conference-pin");
-    }
 
-    if (map) {
-      map.flyTo({
-        center: [coordinates[0], coordinates[1]],
-        animate: true,
-        zoom: 12,
-        duration: 2000,
-      });
+      if (map) {
+        map.flyTo({
+          center: [coordinates[0], coordinates[1]],
+          animate: true,
+          zoom: 12,
+          duration: 2000,
+        });
+      }
     }
   }
 
@@ -54,7 +58,7 @@ export function ConferencesList() {
 
   return (
     <div className="flex flex-col gap-4 relative z-10 px-3">
-      {conferences.map((conf) => (
+      {formattedConferences.map((conf) => (
         <div
           key={conf.id}
           onMouseEnter={() =>
@@ -70,7 +74,7 @@ export function ConferencesList() {
               <img
                 src={conf.image}
                 alt={conf.name}
-                className="w-full h-40 object-cover"
+                className="w-full h-50 object-cover"
               />
             </div>
           )}
@@ -96,8 +100,8 @@ export function ConferencesList() {
           </div>
 
           <div className="text-xs text-[#818cf8] mb-2">
-            {conf.topics && conf.topics.length
-              ? conf.topics.join(", ")
+            {Array.isArray(conf?.topics)
+              ? conf?.topics?.join(", ")
               : "General Topics"}
           </div>
 
@@ -105,7 +109,10 @@ export function ConferencesList() {
             {renderPrice(conf.price)}
           </div>
 
-          <div className="text-sm text-gray-200 mb-2">{conf.description}</div>
+          <div
+            className="text-sm text-gray-200 mb-2 line-clamp-5"
+            dangerouslySetInnerHTML={{ __html: conf.description }}
+          />
 
           <a
             href={conf.website}

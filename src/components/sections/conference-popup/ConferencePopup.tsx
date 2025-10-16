@@ -2,19 +2,24 @@
 
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import Conferences from "@/app/data/conferences";
+import { formatDateRange } from "./helpers/format-date-range";
 
-export function ConferencePopup() {
-  const searchParams = useSearchParams();
+interface Props {
+  conferences: any[];
+}
+
+export function ConferencePopup({ conferences }: Props) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const openId = searchParams?.get("open") ?? "";
   const [conference, setConference] = useState<any | null>(null);
   const loading = false;
 
   useEffect(() => {
-    const c = Conferences.find((conf) => conf.id === openId);
-    setConference(c);
-  }, [openId]);
+    const conference = conferences.find((conf: any) => conf.id === openId);
+
+    setConference(conference);
+  }, [openId, conferences?.length]);
 
   if (!openId) return null;
 
@@ -22,31 +27,6 @@ export function ConferencePopup() {
     const params = new URLSearchParams(searchParams?.toString() ?? "");
     params.delete("open");
     router.replace(`?${params.toString()}`, { scroll: false });
-  }
-
-  function formatDateRange(start: string, end: string) {
-    if (!start) return "TBD";
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    if (start === end)
-      return startDate.toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-    return (
-      startDate.toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      }) +
-      " - " +
-      endDate.toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    );
   }
 
   return (
@@ -96,9 +76,14 @@ export function ConferencePopup() {
                   {conference.category?.replace(/([A-Z])/g, " $1").trim()}
                 </span>
               </div>
-              <div className="mb-4 text-base opacity-90 leading-relaxed">
-                {conference.description}
-              </div>
+
+              {conference.description && (
+                <div
+                  className="mb-4 text-base opacity-90 leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: conference.description }}
+                />
+              )}
+
               {conference.topics && !!conference.topics.length && (
                 <div className="mb-4">
                   <span className="font-bold text-sm opacity-80">Topics: </span>
@@ -125,6 +110,7 @@ export function ConferencePopup() {
                       )
                     : "TBD"}
                 </div>
+
                 {conference?.price !== undefined &&
                   conference.price !== null && (
                     <div>
@@ -142,12 +128,14 @@ export function ConferencePopup() {
                         : `${conference.price} GEL`}
                     </div>
                   )}
+
                 {conference.location && (
                   <div>
                     <strong>Location:</strong> {conference.location.city}
                   </div>
                 )}
               </div>
+
               {conference.website && (
                 <div className="mb-4">
                   <span className="font-bold text-sm opacity-80">
@@ -163,6 +151,7 @@ export function ConferencePopup() {
                   </a>
                 </div>
               )}
+
               <div className="flex flex-wrap gap-2 mt-8 justify-end">
                 {conference.website && (
                   <a

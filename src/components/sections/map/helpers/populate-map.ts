@@ -1,4 +1,4 @@
-import { addMarker } from "@/app/lib/maplibre-gl";
+import { addMarker } from "@/lib/maplibre-gl";
 
 const markers: maplibregl.Marker[] = [];
 
@@ -6,6 +6,8 @@ export function populateMap(map: maplibregl.Map, conferences: any[]) {
   clearMarkers();
 
   conferences.forEach((conference) => {
+    if (!conference.location.coordinates) return;
+
     const marker = addMarker(
       map,
       conference.location.coordinates as [number, number]

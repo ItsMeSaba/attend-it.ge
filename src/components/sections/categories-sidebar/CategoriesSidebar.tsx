@@ -9,11 +9,13 @@ import {
   FaChartBar,
   FaTree,
   FaThList,
+  FaShapes,
 } from "react-icons/fa";
-import { RiGovernmentLine } from "react-icons/ri";
-import { ConferenceCategory } from "@/types/global";
-import { MdOutlineDesignServices } from "react-icons/md";
+import { getConferenceCountByCategory } from "@/helpers/get-conference-count-by-category";
 import { useRouter, useSearchParams } from "next/navigation";
+import { MdOutlineDesignServices } from "react-icons/md";
+import { ConferenceCategory } from "@/types/global";
+import { RiGovernmentLine } from "react-icons/ri";
 
 import React from "react";
 import clsx from "clsx";
@@ -30,6 +32,7 @@ const categoryIcons: Record<ConferenceCategory, React.ReactNode> = {
   [ConferenceCategory.EnvironmentSustainability]: <FaTree />,
   [ConferenceCategory.GovernmentPolicy]: <RiGovernmentLine />,
   [ConferenceCategory.EngineeringIndustry]: <FaRobot />,
+  [ConferenceCategory.Other]: <FaShapes />,
 };
 
 const categories = Object.entries(ConferenceCategory).map(([value, label]) => ({
@@ -40,10 +43,10 @@ const categories = Object.entries(ConferenceCategory).map(([value, label]) => ({
 
 interface Props {
   className?: string;
-  searchParams?: URLSearchParams;
+  conferences: any[];
 }
 
-export function CategoriesSidebar({ className }: Props) {
+export function CategoriesSidebar({ className, conferences }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -51,7 +54,6 @@ export function CategoriesSidebar({ className }: Props) {
     const params = new URLSearchParams(searchParams?.toString() || "");
 
     params.set("category", category);
-
     router.replace(`?${params.toString()}`, { scroll: false });
   }
 
@@ -78,6 +80,11 @@ export function CategoriesSidebar({ className }: Props) {
 
             <span className="hidden group-hover:block group-hover:ml-1 whitespace-nowrap transition-all duration-200 text-sm font-medium">
               {label}
+
+              {` (${getConferenceCountByCategory(
+                conferences,
+                value as ConferenceCategory
+              )})`}
             </span>
           </div>
         ))}

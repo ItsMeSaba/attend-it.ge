@@ -1,4 +1,4 @@
-import Header from "@/app/components/layout/Header";
+import Header from "@/components/layout/Header";
 
 import { MapProvider } from "@/contexts/MapContext";
 import type { Metadata } from "next";

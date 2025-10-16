@@ -2,15 +2,20 @@
 
 import { useEffect, useRef } from "react";
 import { populateMap } from "./helpers/populate-map";
-import { initializeMap } from "@/app/lib/maplibre-gl";
+import { initializeMap } from "@/lib/maplibre-gl";
 import { useConferences } from "@/hooks/useConferences";
 import { useMapContext } from "@/contexts/MapContext";
 
 import "maplibre-gl/dist/maplibre-gl.css";
 
-export default function Map() {
+interface Props {
+  conferences: any[];
+}
+
+export default function Map({ conferences }: Props) {
   const { map, isLoaded, setMap, setIsLoaded } = useMapContext();
-  const { conferences, key: conferencesKey } = useConferences();
+  const { conferences: formattedConferences, key: conferencesKey } =
+    useConferences(conferences);
   const mapContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,7 +26,7 @@ export default function Map() {
     map.on("load", () => {
       setMap(map);
       setIsLoaded(true);
-      populateMap(map, conferences);
+      populateMap(map, formattedConferences);
     });
 
     return () => {
@@ -32,7 +37,7 @@ export default function Map() {
   useEffect(() => {
     if (!map) return;
 
-    populateMap(map, conferences);
+    populateMap(map, formattedConferences);
   }, [conferencesKey, isLoaded]);
 
   return (

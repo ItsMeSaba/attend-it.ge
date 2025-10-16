@@ -10,4 +10,5 @@ export enum ConferenceCategory {
   EnvironmentSustainability = "Environment / Sustainability",
   GovernmentPolicy = "Government / Policy",
   EngineeringIndustry = "Engineering / Industry",
+  Other = "Other",
 }

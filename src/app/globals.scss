@@ -40,6 +40,8 @@ body {
 }
 
 .active-conference-pin {
+  z-index: 100;
+
   svg {
     overflow: visible;
     stroke: #e67e22;
